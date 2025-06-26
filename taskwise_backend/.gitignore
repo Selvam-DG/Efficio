@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Django specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# Pipenv
+Pipfile.lock
+
+# Virtualenv
+venv/
+env/
+ENV/
+.venv/
+
+# MyPy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+
+# Django migrations (optional, if you regenerate them)
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/__pycache__/
+# Uncomment below to ignore migrations completely:
+# **/migrations/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,9 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'taskwise_backend',
+    'tailwind',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'api',
+    'theme',
 ]
 
 MIDDLEWARE = [
@@ -119,11 +124,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+# STATICFILES_DIRS = [BASE_DIR/"static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
 
 
 ## Added by User
@@ -132,6 +140,7 @@ REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
       'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # Or IsAuthenticated, etc.
@@ -139,5 +148,7 @@ REST_FRAMEWORK ={
     ]
 
 }
+NPM_BIN_PATH = "C:\\Program Files\\nodejs\\npm.cmd"
 
-
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = ["127.0.0.1"]

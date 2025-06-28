@@ -6,6 +6,7 @@ const taskURL = "http://localhost:8000/api/tasks/";
 
 export default function Tasks() {
   const { projectId } = useParams();
+  const {projectName} = useParams();
 
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
@@ -96,7 +97,7 @@ export default function Tasks() {
   return (
     <div className="p-6 max-w-3xl mx-auto">
         
-        <h1 className="text-2xl font-bold mb-4">Tasks for Project {projectId}</h1>
+        <h1 className="text-2xl font-bold mb-4">Tasks for Project {projectId}{projectName}</h1>
 
         <form onSubmit={createTask} className="mb-6 space-y-2 border p-4 rounded bg-gray-100">
         <input

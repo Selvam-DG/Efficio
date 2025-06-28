@@ -4,6 +4,12 @@ from .serializers import ProjectSerializer, TaskSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.shortcuts import render
+
+
+def postman_ui(request):
+    return render(request, 'api/login.html')
+
 
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()

@@ -1,0 +1,115 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Postman API</title>
+    {% tailwind_css %}
+  </head>
+  <body>
+    <nav class="bg-gray-600 text-white p-4">
+      <div>home</div>
+    </nav>
+    <div class="grid grid-cols-4 bg-gray-100 h-screen">
+      <div class="bg-gray-200 p-4">
+        <div class="flex items-center justify-center p-4 mt-4">
+          <form class="bg-white rounded w-80 p-4" onsubmit="login(event)">
+            <h2 class="text-2xl mb-5">Login with Credential</h2>
+            <input
+              class="w-full mb-3 p-2 border rounded"
+              type="text"
+              id="username"
+              placeholder="Username"
+            /><br />
+            <input
+              class="w-full mb-3 p-2 border rounded"
+              type="password"
+              id="password"
+              placeholder="Password"
+            /><br />
+            <button
+              class="bg-blue-500 text-white w-full py-2 rounded hover:bg-blue-600"
+              type="submit"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+        <div class="bg-green-100 min-h-40 mb-5 overflow-auto max-h-40 rounded">
+          <div class="p-3 text-start text-xl font-semibold">Token access</div>
+          <p
+            id="token-display"
+            class="p-3 break-words whitespace-pre-wrap text-sm text-green-700 font-mono"
+          ></p>
+        </div>
+        <div class="flex-1 bg-gray-600 text-white min-h-50">
+          <div class="p-3 text-start text-xl">HTTP Requests</div>
+        </div>
+      </div>
+      <div class="h-screen bg-gray-300 col-span-3">
+        <div class="flex-col">
+          <div class="flex-1 min-h-20 bg-blue-100 border">Header</div>
+          <div class="flex-1 min-h-100 border bg-blue-200">Input</div>
+          <div class="flex-1 min-h-100 border bg-red-200">Output</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function login(event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        fetch("http://localhost:8000/api/token/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.access) {
+              const accessToken = data.access;
+              const refreshToken = data.refresh;
+
+              localStorage.setItem("accessToken", accessToken);
+              localStorage.setItem("refreshToken", refreshToken);
+              document.getElementById("token-display").innerText =
+                "Access: " + accessToken + "\n \nRefresh: " + refreshToken;
+            } else {
+              document.getElementById("token-display").innerText =
+                "Login failed: " + JSON.stringify(data);
+            }
+          })
+          .catch((error) => {
+            document.getElementById("token-display").innerText =
+              "Network error: " + error.message;
+          });
+      }
+
+      function makeRequest() {
+        const endpoint = document.getElementById("endpoint").value;
+        const body = document.getElementById("body").value;
+
+        fetch(endpoint, {
+          method: "POST",
+          headers: {
+            Authorization: "Token " + token,
+            "Content-Type": "application/json",
+          },
+          body: body,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("response").innerText = JSON.stringify(
+              data,
+              null,
+              2
+            );
+          });
+      }
+    </script>
+  </body>
+</html>

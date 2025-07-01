@@ -39,12 +39,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'taskwise_backend',
+    'users',
+    'projects',
     'tailwind',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
     'api',
     'theme',
+   
 ]
 
 MIDDLEWARE = [
@@ -135,6 +138,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 ## Added by User
+
+AUTH_USER_MODEL = 'users.User'
+
 CORS_ALLOW_ALL_ORIGINS  = True #False when production
 REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES':(

@@ -1,3 +1,5 @@
+
+'''
 from rest_framework import viewsets , status
 from .models import Project, Task
 from .serializers import ProjectSerializer, TaskSerializer
@@ -43,3 +45,4 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
 
+'''
